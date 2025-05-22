@@ -4,6 +4,9 @@ import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+
 
 interface ResponseViewerProps {
   response: {
@@ -57,8 +60,24 @@ export default function ResponseViewer({ response }: ResponseViewerProps) {
             </div>
           )}
 
-          <ScrollArea className="overflow-x-hidden overflow-y-auto h-[400px] w-full rounded-md border p-4 font-mono text-sm">
-            <pre>{bodyFormat === "formatted" && isJson() ? formatBody(response.body) : response.body}</pre>
+          <ScrollArea className="overflow-x-hidden overflow-y-auto h-[400px] w-full rounded-md border">
+            {isJson() ? (
+              <SyntaxHighlighter
+                language="json"
+                style={vscDarkPlus}
+                customStyle={{
+                  margin: 0,
+                  borderRadius: '0.375rem',
+                  height: '100%',
+                }}
+              >
+                {bodyFormat === "formatted" ? formatBody(response.body) : response.body}
+              </SyntaxHighlighter>
+            ) : (
+              <div className="p-4 font-mono text-sm">
+                <pre>{response.body}</pre>
+              </div>
+            )}
           </ScrollArea>
         </div>
       </TabsContent>

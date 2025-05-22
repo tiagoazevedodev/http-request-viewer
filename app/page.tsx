@@ -14,7 +14,7 @@ import RequestHeaders from "@/components/request-headers"
 import ResponseViewer from "@/components/response-viewer"
 
 export default function HttpRequestViewer() {
-  const [url, setUrl] = useState("https://jsonplaceholder.typicode.com/posts/1")
+  const [url, setUrl] = useState("http://mercotrace.hirameki.me:8000/containers/")
   const [method, setMethod] = useState("GET")
   const [requestHeaders, setRequestHeaders] = useState<{ key: string; value: string }[]>([
     { key: "Content-Type", value: "application/json" },
@@ -110,10 +110,10 @@ export default function HttpRequestViewer() {
   }
 
   return (
-    <div className="container mx-auto py-10 max-w-5xl">
+    <div className="container mx-auto py-10 max-w-7xl">
       <h1 className="text-3xl font-bold mb-6">HTTP Request Viewer</h1>
 
-      <div className="grid gap-6">
+      <div className="flex flex-col max-w-7xl p-4 gap-6">
         <Card>
           <CardHeader>
             <CardTitle>Requisição HTTP</CardTitle>
